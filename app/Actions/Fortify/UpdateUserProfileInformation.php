@@ -43,6 +43,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'country_id' => $input['country_id'],
             ])->save();
         }
+        $user->vehicleTypes()->sync($input['userVehicles']);
     }
 
     /**

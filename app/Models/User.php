@@ -60,4 +60,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function vehicleTypes()
+    {
+        return $this->belongsToMany(VehicleType::class);
+    }
 }

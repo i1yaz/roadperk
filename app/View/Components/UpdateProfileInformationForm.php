@@ -8,6 +8,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Country;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\VehicleType;
 
 class UpdateProfileInformationForm extends Component
 {
@@ -47,6 +48,19 @@ class UpdateProfileInformationForm extends Component
     public $country_id;
 
     /**
+     * vehicles
+     *
+     * @var VehicleType $vehicle
+     */
+    public $vehicleTypes;
+    /**
+     * vehicles Id of user
+     *
+     * @var array
+     */
+    public $userVehicles = [];
+
+    /**
      * Prepare the component.
      *
      * @return void
@@ -54,8 +68,13 @@ class UpdateProfileInformationForm extends Component
 
     public function mount()
     {
-        $this->state = Auth::user()->withoutRelations()->toArray();
+        $user = Auth::user();
+        $this->state =  $user->withoutRelations()->toArray();
         $this->country_id = $this->state['country_id'];
+        $this->userVehicles =  $user->vehicleTypes->pluck('id')->toArray();
+        $this->vehicleTypes = Cache::rememberForever('vehicleTypes', function () {
+            return VehicleType::get();
+        });
         $this->countries = Cache::rememberForever('countries', function () {
             return Country::get();
         });
@@ -70,8 +89,8 @@ class UpdateProfileInformationForm extends Component
     public function updateProfileInformation(UpdateUserProfileInformation $updater)
     {
         $this->state = array_merge($this->state, ['country_id' => $this->country_id]);
+        $this->state = array_merge($this->state, ['userVehicles' => $this->userVehicles]);
         $this->resetErrorBag();
-
         $updater->update(
             Auth::user(),
             $this->photo

@@ -2,7 +2,6 @@
     <x-slot name="title">
         {{ __('Profile Information') }}
     </x-slot>
-
     <x-slot name="description">
         {{ __('Update your account\'s profile information and email address.') }}
     </x-slot>
@@ -101,28 +100,17 @@
                 </div>
             <x-jet-input-error for="country_id" class="mt-2" />
         </div>
-        {{-- <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="vehicle" value="{{ __('Vehicle ') }}" />
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="vehicle" value="{{ __('Vehicle Types') }}" />
+            @foreach ($this->vehicleTypes as $vehicleType)
             <div class="form-check">
-              <x-jet-checkbox wire:model.defer="vehicle" :value="$vehicle"/>
+              <x-jet-checkbox wire:model.defer="userVehicles" :value="$vehicleType->id"/>
               <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                Default checkbox
+                {{ $vehicleType->name }}
               </label>
             </div>
-            <div class="form-check">
-                <x-jet-checkbox wire:model.defer="vehicle" :value="$vehicle"/>
-                <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                  Default checkbox
-                </label>
-            </div>
-            <div class="form-check">
-                <x-jet-checkbox wire:model.defer="vehicle" :value="$vehicle"/>
-                <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                  Default checkbox
-                </label>
-            </div>
-
-          </div> --}}
+            @endforeach
+          </div>
     </x-slot>
 
     <x-slot name="actions">
