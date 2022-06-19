@@ -90,28 +90,39 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-
+            <x-jet-label for="country_id" value="{{ __('Country') }}" />
                 <div class="mb-3 w-full">
-                  <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full" aria-label="Default select example">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                  <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full" aria-label="Default select example" wire:model.defer="country_id" id="country_id">
+                    <option>Country</option>
+                    @foreach ($this->countries as $country)
+                    <option value="{{ $country->id }}" >{{ $country->name }}</option>
+                    @endforeach
                   </select>
                 </div>
+            <x-jet-input-error for="country_id" class="mt-2" />
         </div>
+        {{-- <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="vehicle" value="{{ __('Vehicle ') }}" />
+            <div class="form-check">
+              <x-jet-checkbox wire:model.defer="vehicle" :value="$vehicle"/>
+              <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                Default checkbox
+              </label>
+            </div>
+            <div class="form-check">
+                <x-jet-checkbox wire:model.defer="vehicle" :value="$vehicle"/>
+                <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                  Default checkbox
+                </label>
+            </div>
+            <div class="form-check">
+                <x-jet-checkbox wire:model.defer="vehicle" :value="$vehicle"/>
+                <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                  Default checkbox
+                </label>
+            </div>
+
+          </div> --}}
     </x-slot>
 
     <x-slot name="actions">

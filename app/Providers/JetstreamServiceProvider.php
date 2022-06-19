@@ -6,6 +6,8 @@ use App\Actions\Jetstream\DeleteUser;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
+use App\View\Components\UpdateProfileInformationForm;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,7 @@ class JetstreamServiceProvider extends ServiceProvider
         $this->configurePermissions();
         $this->configureRoutes();
         Jetstream::deleteUsersUsing(DeleteUser::class);
+        Livewire::component('profile.update-profile-information-form', UpdateProfileInformationForm::class);
     }
 
     /**
