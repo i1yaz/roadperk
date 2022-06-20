@@ -59,7 +59,18 @@ class UpdateProfileInformationForm extends Component
      * @var array
      */
     public $userVehicles = [];
-
+    /**
+     * newsletter
+     *
+     * @var bool
+     */
+    public $newsletter = false;
+    /**
+     * newsletter
+     *
+     * @var bool
+     */
+    public $upcomingEventNotifications = false;
     /**
      * Prepare the component.
      *
@@ -69,9 +80,12 @@ class UpdateProfileInformationForm extends Component
     public function mount()
     {
         $user = Auth::user();
+        $newsletters = json_decode($user['newsletters'], true);
         $this->state =  $user->withoutRelations()->toArray();
         $this->country_id = $this->state['country_id'];
         $this->userVehicles =  $user->vehicleTypes->pluck('id')->toArray();
+        $this->newsletter = $newsletters['newsletter'];
+        $this->upcomingEventNotifications = $newsletters['upcomingEventNotifications'];
         $this->vehicleTypes = Cache::rememberForever('vehicleTypes', function () {
             return VehicleType::get();
         });
@@ -88,8 +102,7 @@ class UpdateProfileInformationForm extends Component
      */
     public function updateProfileInformation(UpdateUserProfileInformation $updater)
     {
-        $this->state = array_merge($this->state, ['country_id' => $this->country_id]);
-        $this->state = array_merge($this->state, ['userVehicles' => $this->userVehicles]);
+        $this->constructState();
         $this->resetErrorBag();
         $updater->update(
             Auth::user(),
@@ -106,7 +119,19 @@ class UpdateProfileInformationForm extends Component
 
         $this->emit('refresh-navigation-menu');
     }
-
+    public function constructState()
+    {
+        $this->state = array_merge($this->state, ['country_id' => $this->country_id]);
+        $this->state = array_merge($this->state, ['userVehicles' => $this->userVehicles]);
+        $notifications = [
+            'notifications' =>
+            [
+                'newsletter' => $this->newsletter,
+                'upcomingEventNotifications' => $this->upcomingEventNotifications
+            ]
+        ];
+        $this->state = array_merge($this->state, $notifications);
+    }
     /**
      * Delete user's profile photo.
      *

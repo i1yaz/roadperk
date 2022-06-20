@@ -87,7 +87,7 @@
                 @endif
             @endif
         </div>
-
+    <!-- Country -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="country_id" value="{{ __('Country') }}" />
                 <div class="mb-3 w-full">
@@ -100,6 +100,7 @@
                 </div>
             <x-jet-input-error for="country_id" class="mt-2" />
         </div>
+        <!-- vehicleType -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="vehicle" value="{{ __('Vehicle Types') }}" />
             @foreach ($this->vehicleTypes as $vehicleType)
@@ -110,7 +111,31 @@
               </label>
             </div>
             @endforeach
-          </div>
+        </div>
+        <!-- Subscribe newsletter -->
+        <div class="col-span-6 sm:col-span-4 mt-1">
+                <x-jet-label for="terms">
+                    <div class="flex items-center">
+                        <x-jet-checkbox name="newsletter" id="newsletter" wire:model.defer="newsletter" :value="$newsletter"/>
+
+                        <div class="ml-2">
+                            {!! __('Subscribe for cool trips, travel news and more!') !!}
+                        </div>
+                    </div>
+                </x-jet-label>
+        </div>
+        <!-- get upcomming notification -->
+        <div class="col-span-6 sm:col-span-4 mt-1">
+                <x-jet-label for="terms">
+                    <div class="flex items-center">
+                        <x-jet-checkbox name="upcomingEventNotifications" wire:model.defer="upcomingEventNotifications" id="upcomingEventNotifications" :value="$upcomingEventNotifications" />
+
+                        <div class="ml-2">
+                            {!! __('I would like to receive notifications for my upcoming trips') !!}
+                        </div>
+                    </div>
+                </x-jet-label>
+        </div>
     </x-slot>
 
     <x-slot name="actions">

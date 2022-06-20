@@ -41,6 +41,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'country_id' => $input['country_id'],
+                'newsletters' => json_encode($input['notifications'])
             ])->save();
         }
         $user->vehicleTypes()->sync($input['userVehicles']);
@@ -60,6 +61,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'email' => $input['email'],
             'email_verified_at' => null,
             'country_id' => $input['country_id'],
+            'newsletters' => json_encode($input['notifications'])
         ])->save();
 
         $user->sendEmailVerificationNotification();
