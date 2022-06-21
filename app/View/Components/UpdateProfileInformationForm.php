@@ -84,8 +84,10 @@ class UpdateProfileInformationForm extends Component
         $this->state =  $user->withoutRelations()->toArray();
         $this->country_id = $this->state['country_id'];
         $this->userVehicles =  $user->vehicleTypes->pluck('id')->toArray();
-        $this->newsletter = $newsletters['newsletter'];
-        $this->upcomingEventNotifications = $newsletters['upcomingEventNotifications'];
+        if (!empty($newsletters) && is_array($newsletters)) {
+            $this->newsletter = $newsletters['newsletter'];
+            $this->upcomingEventNotifications = $newsletters['upcomingEventNotifications'];
+        }
         $this->vehicleTypes = Cache::rememberForever('vehicleTypes', function () {
             return VehicleType::get();
         });
