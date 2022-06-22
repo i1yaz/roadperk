@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Country;
+use App\Models\VehicleType;
 
 class CountryTableSeeder extends Seeder
 {
@@ -269,8 +270,14 @@ class CountryTableSeeder extends Seeder
             ['name' => 'Zimbabwe', 'code' => 'ZW'],
         ];
 
-        foreach ($countries as $key => $value) {
-            Country::create($value);
-        }
+        Country::insert($countries);
+
+        VehicleType::truncate();
+        $vehicleTypes = [
+            'Petrol vehicle',
+            'Electric vehicle',
+            'Motorcycle'
+        ];
+        Country::insert($vehicleTypes);
     }
 }
