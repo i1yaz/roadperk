@@ -58,7 +58,7 @@
                                     <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                         {{ $user->name }}
                                         <br>
-                                        {{ $user->email }}
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas rerum fugit, odio atque eaque perspiciatis, facere praesentium quia reiciendis iure optio excepturi unde non tempora officiis laboriosam recusandae, dolore deleniti.
                                         <br>
                                     </div>
                                 </div>
