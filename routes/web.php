@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome', compact('users'));
 });
 Route::group(['controller' => HomeController::class], function () {
-    Route::get('{username}', 'profile')->name('user.profile');
+    Route::get('{username}', 'profile')->where('username', '^(?!settings|dashboard).*$')->name('user.profile');
 });
 
 Route::middleware([
