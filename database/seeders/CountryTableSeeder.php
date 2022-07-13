@@ -274,9 +274,9 @@ class CountryTableSeeder extends Seeder
 
         VehicleType::truncate();
         $vehicleTypes = [
-            'Petrol vehicle',
-            'Electric vehicle',
-            'Motorcycle',
+            'name' =>'Petrol vehicle',
+            'name' =>'Electric vehicle',
+            'name' =>'Motorcycle',
         ];
         VehicleType::insert($vehicleTypes);
     }
