@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Country;
 use App\Models\VehicleType;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class CountryTableSeeder extends Seeder
 {
@@ -276,7 +276,7 @@ class CountryTableSeeder extends Seeder
         $vehicleTypes = [
             'Petrol vehicle',
             'Electric vehicle',
-            'Motorcycle'
+            'Motorcycle',
         ];
         Country::insert($vehicleTypes);
     }

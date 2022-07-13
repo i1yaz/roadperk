@@ -2,13 +2,13 @@
 
 namespace App\View\Components;
 
+use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Country;
+use App\Models\VehicleType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Cache;
-use App\Models\Country;
-use App\Actions\Fortify\UpdateUserProfileInformation;
-use App\Models\VehicleType;
 
 class UpdateProfileInformationForm extends Component
 {
@@ -34,12 +34,14 @@ class UpdateProfileInformationForm extends Component
      * @var bool
      */
     public $verificationLinkSent = false;
+
     /**
      * get list of all countries
      *
      * @var array
      */
     public $countries;
+
     /**
      * country Id of user
      *
@@ -50,41 +52,44 @@ class UpdateProfileInformationForm extends Component
     /**
      * vehicles
      *
-     * @var VehicleType $vehicle
+     * @var VehicleType
      */
     public $vehicleTypes;
+
     /**
      * vehicles Id of user
      *
      * @var array
      */
     public $userVehicles = [];
+
     /**
      * newsletter
      *
      * @var bool
      */
     public $newsletter = false;
+
     /**
      * newsletter
      *
      * @var bool
      */
     public $upcomingEventNotifications = false;
+
     /**
      * Prepare the component.
      *
      * @return void
      */
-
     public function mount()
     {
         $user = Auth::user();
         $newsletters = json_decode($user['newsletters'], true);
-        $this->state =  $user->withoutRelations()->toArray();
+        $this->state = $user->withoutRelations()->toArray();
         $this->country_id = $this->state['country_id'];
-        $this->userVehicles =  $user->vehicleTypes->pluck('id')->toArray();
-        if (!empty($newsletters) && is_array($newsletters)) {
+        $this->userVehicles = $user->vehicleTypes->pluck('id')->toArray();
+        if (! empty($newsletters) && is_array($newsletters)) {
             $this->newsletter = $newsletters['newsletter'];
             $this->upcomingEventNotifications = $newsletters['upcomingEventNotifications'];
         }
@@ -121,19 +126,20 @@ class UpdateProfileInformationForm extends Component
 
         $this->emit('refresh-navigation-menu');
     }
+
     public function constructState()
     {
         $this->state = array_merge($this->state, ['country_id' => $this->country_id]);
         $this->state = array_merge($this->state, ['userVehicles' => $this->userVehicles]);
         $notifications = [
-            'notifications' =>
-            [
+            'notifications' => [
                 'newsletter' => $this->newsletter,
-                'upcomingEventNotifications' => $this->upcomingEventNotifications
-            ]
+                'upcomingEventNotifications' => $this->upcomingEventNotifications,
+            ],
         ];
         $this->state = array_merge($this->state, $notifications);
     }
+
     /**
      * Delete user's profile photo.
      *

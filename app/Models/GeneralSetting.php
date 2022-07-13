@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class GeneralSetting extends Model
 {
     use HasFactory;
+
     public $fillable = [
-        'key', 'value'
+        'key', 'value',
     ];
 }

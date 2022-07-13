@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\HomeController as UserHomeController;
-use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +18,7 @@ use App\Models\User;
 
 Route::get('/', function () {
     $users = User::all();
+
     return view('welcome', compact('users'));
 });
 Route::group(['controller' => HomeController::class], function () {
@@ -27,7 +28,7 @@ Route::group(['controller' => HomeController::class], function () {
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
 ])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');

@@ -12,7 +12,6 @@ class GoogleAnalyticsFeature extends Component
 
     public function mount()
     {
-
         $generalSetting = Cache::rememberForever('generalSettings', function () {
             return GeneralSetting::get();
         });
