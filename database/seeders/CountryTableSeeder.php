@@ -278,6 +278,6 @@ class CountryTableSeeder extends Seeder
             'Electric vehicle',
             'Motorcycle',
         ];
-        Country::insert($vehicleTypes);
+        VehicleType::insert($vehicleTypes);
     }
 }
